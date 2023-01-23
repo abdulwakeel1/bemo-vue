@@ -32,13 +32,16 @@
       </div>
       <button @click="addColumn" class="add-column-button">Add Column</button>
 
-      <modal name="ticket-modal" v-if="showModal" @close="showModal = false">
-        <h3>{{ currentCard.title }}</h3>
-        <p>{{ currentCard.description }}</p>
-        <input v-model="currentCard.title" placeholder="Title" />
-        <textarea v-model="currentCard.description" placeholder="Description"></textarea>
-      </modal>
+      
+      
     </div>
+      <div  class="ticket-modal">
+        <modal name="ticket-modal"  @close="showModal = false">
+          <h3>Ticket Detail</h3>
+          <input v-model="currentCard.title" placeholder="Title" />
+          <textarea v-model="currentCard.description" placeholder="Description"></textarea>
+        </modal>
+      </div>
   </div>
   
 </template>
@@ -98,6 +101,8 @@ export default {
     openModal(card) {
       this.currentCard = card;
       this.showModal = true;
+      this.$modal.show('ticket-modal')
+
     },
     async handleDrop(event) {
       const column = event.to
@@ -189,6 +194,42 @@ export default {
       background-color: #e9eeea;
       transition: background-color 0.3s ease-in-out;
   }
+
+  /* The modal container */
+  .ticket-modal {
+    background-color: #fff; /* white background */
+    border-radius: 6px; /* rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* shadow */
+    padding: 20px; /* add padding */
+    width: 50%; /* set the width of the modal */
+    max-height: 80%; /* set the max-height of the modal */
+    overflow-y: scroll; /* enable scroll if needed */
+  }
+
+  /* Title */
+  .ticket-modal h3 {
+    margin: 0; /* remove margin */
+    font-size: 24px; /* increase font size */
+    font-weight: bold; /* make the title bold */
+    text-align: center; /* center the title */
+  }
+
+  /* Input and Textarea */
+  .ticket-modal input,
+  .ticket-modal textarea {
+    border-radius: 4px; /* rounded corners */
+    border: none; /* remove border */
+    padding: 10px; /* add padding */
+    font-size: 18px; /* increase font size */
+    width: 100%; /* set the width of the input and textarea */
+    margin-top: 10px; /* add margin */
+  }
+
+  /* Placeholder text */
+  .ticket-modal ::placeholder {
+    color: #ccc; /* light gray color */
+  }
+
 
   
 
